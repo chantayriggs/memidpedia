@@ -1,15 +1,13 @@
-  
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React from "react"
 
-import router from "./utils/router";
-import { createAppContainer } from "react-navigation";
-const AppContainer = createAppContainer(router);
+import router from "./utils/router"
+import { createAppContainer } from "react-navigation"
+const AppContainer = createAppContainer(router)
 
 const App = () => {
   return (
       <AppContainer />
-  );
+  )
 }
 
 export default App
