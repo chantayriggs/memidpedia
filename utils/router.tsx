@@ -1,13 +1,14 @@
 import React from "react"
 
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer, createSwitchNavigator } from "react-navigation"
+import { createStackNavigator } from "react-navigation-stack"
 
-import FeedScreen from "../screens/FeedScreen";
-import SearchScreen from "../screens/SearchScreen";
-import AccountScreen from "../screens/AccountScreen";
-import PostFormScreen from "../screens/PostFormScreen";
+import FeedScreen from "../screens/FeedScreen"
+import SearchScreen from "../screens/SearchScreen"
+import AccountScreen from "../screens/AccountScreen"
+import PostFormScreen from "../screens/PostFormScreen"
 import AuthScreen from "../screens/auth/AuthScreen"
+import AuthLoadingScreen from "../screens/auth/AuthLoadingScreen"
 
 import HeaderLogo from "../components/images/HeaderLogo"
 
@@ -47,11 +48,12 @@ const AuthStack = createStackNavigator({
 export default createAppContainer(
   createSwitchNavigator(
     {
+      AuthLoading: AuthLoadingScreen,
       App: AppStack,
       Auth: AuthStack
     },
     {
-      initialRouteName: "Auth"
+      initialRouteName: "AuthLoading"
     }
   )
-);
+)

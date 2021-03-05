@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native"
-
+import * as SecureStore from "expo-secure-store"
 
 import API from "../../utils/api"
 import Button from "../../components/helpers/buttons"
@@ -8,12 +8,9 @@ import { formatErrors } from "../../utils/textFormatters"
 
 import authScreenStyles from "../../styles/stacks/auth/authScreenStyles"
 import textInputStyles from "../../styles/forms/textInputStyles"
-
+import CurrentUserContext from "../../contexts/CurrentUserContext"
 
 const { textField, textFieldWrapper } = textInputStyles
-
-
-
 
 
 interface IAuthScreenProps {
@@ -29,6 +26,8 @@ export default ( props: IAuthScreenProps ) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const { getUser } = useContext(CurrentUserContext)
 
 
     const screenTypeText = () => {
@@ -64,14 +63,18 @@ export default ( props: IAuthScreenProps ) => {
         }
 
         API.post("memipedia_user_token", params)
-             .then( response => {
+             .then( async response => {
 
                  if (response.data.jwt) {
-                     props.navigation.navigate("Feed")
+                    await SecureStore.setItemAsync("memipedia_secure_token", response.data.jwt)
+                    getUser()
+                    setIsSubmitting(false)
+                    props.navigation.navigate("Feed")
                  } else {
-                     alert("Unrecognized email or password")
+                    setIsSubmitting(false)
+                    alert("Unrecognized email or password")
                  }
-                 setIsSubmitting(false)
+                 
              })
              .catch( error => {
                 setIsSubmitting(false)
@@ -89,18 +92,18 @@ export default ( props: IAuthScreenProps ) => {
         }
 
         API.post("memipedia_users", params)
-             .then( response => {
+            .then( response => {
                 if (response.data.memipedia_user) {
-                    props.navigation.navigate("Feed")
+                    handleLogin()
                 } else {
+                    setIsSubmitting(false)
                     alert(`Error creating account: ${formatErrors(response.data.errors)}`)
                 }
-                 setIsSubmitting(false)
-             })
-             .catch( error => {
+            })
+            .catch( error => {
                 setIsSubmitting(false)
                 alert("Error creating user account")
-             })
+            })
         
     }
     
@@ -110,6 +113,7 @@ export default ( props: IAuthScreenProps ) => {
         if (formToShow === "LOGIN") {
             handleLogin()
         } else {
+
             handleRegistration()
         }
         
@@ -139,6 +143,7 @@ export default ( props: IAuthScreenProps ) => {
                     value={ password } 
                     onChangeText={ typing => setPassword(typing) }
                     secureTextEntry={true}
+                    onSubmitEditing={handleSubmit}
                 />
             </View>
 
