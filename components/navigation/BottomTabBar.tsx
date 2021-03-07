@@ -3,7 +3,6 @@ import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 import bottomTabStyles from "../../styles/navigation/bottomTabStyles";
 
