@@ -1,4 +1,5 @@
 import React from "react"
+import { StatusBar } from "react-native"
 
 import router from "./utils/router"
 import { createAppContainer } from "react-navigation"
@@ -13,6 +14,7 @@ const AppContainer = createAppContainer(router)
 const App = () => {
 	return (
 		<CurrentUserProvider>
+			<StatusBar barStyle="light-content" />
 			<AppContainer />
 		</CurrentUserProvider>
 	)

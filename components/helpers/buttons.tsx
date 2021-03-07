@@ -6,7 +6,7 @@ import { highlight, lightGrey} from "../../styles/colors"
 
 interface IButtonProps {
     text: string
-    onPress: any
+    onPress?: any
     // question mark means it's not required
     disabled?: boolean
 }

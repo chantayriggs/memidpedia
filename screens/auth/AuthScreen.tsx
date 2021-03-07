@@ -152,7 +152,7 @@ export default ( props: IAuthScreenProps ) => {
             </TouchableOpacity>
 
             {
-                isSubmitting ? <Button text={"Submitting..."} onPress={handleSubmit} disabled={true} />
+                isSubmitting ? <Button text={"Submitting..."} disabled />
                 : <Button text={buttonText()} onPress={handleSubmit} />
             }
 

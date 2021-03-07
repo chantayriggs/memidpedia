@@ -13,13 +13,20 @@ import AuthLoadingScreen from "../screens/auth/AuthLoadingScreen"
 import HeaderLogo from "../components/images/HeaderLogo"
 
 import { dark } from "../styles/colors"
+import PostDetailScreen from "../screens/PostDetailScreen"
 
 const AppStack = createStackNavigator(
   {
     Feed: FeedScreen,
     Search: SearchScreen,
     Account: AccountScreen,
-    PostForm: PostFormScreen
+    PostForm: PostFormScreen,
+    PostDetail: {
+      screen: PostDetailScreen,
+      navigationOptions: {
+        headerLeft: () => null, 
+      }
+    }
   },
   {
     initialRouteName: "Feed",
